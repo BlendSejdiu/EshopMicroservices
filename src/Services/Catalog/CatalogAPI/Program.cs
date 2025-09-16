@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// add services to the container 
 builder.Services.AddMediatR(config => 
     { 
         config.RegisterServicesFromAssembly(typeof(Program).Assembly);
