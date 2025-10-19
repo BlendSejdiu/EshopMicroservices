@@ -1,7 +1,8 @@
+using Discount.GRPC;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// add services before building
-
+//App
 builder.Services.AddCarter();
 builder.Services.AddMediatR(config => {
     config.RegisterServicesFromAssembly(typeof(Program).Assembly);
@@ -9,6 +10,7 @@ builder.Services.AddMediatR(config => {
     config.AddOpenBehavior(typeof(LoggingBehaviour<,>));
 });
 
+//Data
 builder.Services.AddMarten(opts =>
 {
     opts.Connection(builder.Configuration.GetConnectionString("Database")!);
@@ -24,8 +26,12 @@ builder.Services.AddStackExchangeRedisCache(options =>
     //options.InstanceName = "Basket";
 });
 
-builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options => 
+{
+    options.Address = new Uri(builder.Configuration["GrpcSetting:DiscountUrl"]!);
+});
 
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks().AddNpgSql(builder.Configuration.GetConnectionString("Database")!)
                 .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
 
