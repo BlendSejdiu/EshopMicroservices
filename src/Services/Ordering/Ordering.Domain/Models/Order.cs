@@ -20,5 +20,51 @@
             get => OrderItems.Sum(x => x.Price * x.Quantity);
             private set { }
         }
+
+        public static Order Create(OrderId Id, CustomerId customerId, OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
+        {
+            var order = new Order
+            {
+                Id = Id,
+                CustomerId = customerId,
+                OrderName = orderName,
+                ShippingAddress = shippingAddress,
+                BilligAddress = billingAddress,
+                Payment = payment,
+                Status = OrderStatus.Pending,
+            };
+
+            order.AddDomainEvent(new OrderCreatedEvent(order));
+            return order;
+        }
+
+        public void Update(OrderId Id, CustomerId customerId, OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
+        {
+
+            OrderName = orderName;
+            ShippingAddress = shippingAddress;
+            BilligAddress = billingAddress;
+            Payment = payment;
+            Status = OrderStatus.Pending;
+
+            AddDomainEvent(new OrderUpdateEvent(this));
+        }
+
+        public void Add(ProductId productId, int quantity, decimal price)
+        {
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
+
+            var orderItem = new OrderItem(Id, productId, quantity, price);
+            _orderItems.Add(orderItem);
+        }
+
+        public void Remove(ProductId productId)
+        { 
+            var orderItem = _orderItems.FirstOrDefault(x => x.ProductId == productId);
+            if (orderItem is not null)
+                _orderItems.Remove(orderItem);
+        }
+
     }
 }
