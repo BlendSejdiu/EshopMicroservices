@@ -25,7 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\..\Discount\Discount.GRPC\Protos\discount.proto" GrpcServices="Client">
+    <Folder Include="Protos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\..\Discount2\Discount.GRPC\Protos\discount.proto" GrpcServices="Client">
       <Link>Protos\discount.proto</Link>
     </Protobuf>
   </ItemGroup>

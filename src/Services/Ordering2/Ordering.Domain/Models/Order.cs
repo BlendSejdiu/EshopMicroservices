@@ -29,7 +29,7 @@
                 CustomerId = customerId,
                 OrderName = orderName,
                 ShippingAddress = shippingAddress,
-                BilligAddress = billingAddress,
+                BillingAddress = billingAddress,
                 Payment = payment,
                 Status = OrderStatus.Pending,
             };
@@ -43,7 +43,7 @@
 
             OrderName = orderName;
             ShippingAddress = shippingAddress;
-            BilligAddress = billingAddress;
+            BillingAddress = billingAddress;
             Payment = payment;
             Status = OrderStatus.Pending;
 
