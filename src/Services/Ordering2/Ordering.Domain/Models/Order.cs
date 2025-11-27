@@ -38,14 +38,14 @@
             return order;
         }
 
-        public void Update(OrderId Id, CustomerId customerId, OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
+        public void Update(OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment, OrderStatus status)
         {
 
             OrderName = orderName;
             ShippingAddress = shippingAddress;
             BillingAddress = billingAddress;
             Payment = payment;
-            Status = OrderStatus.Pending;
+            Status = status;
 
             AddDomainEvent(new OrderUpdateEvent(this));
         }
