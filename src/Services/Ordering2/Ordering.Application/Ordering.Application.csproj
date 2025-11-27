@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Orders\EventHandlers\Domain\" />
     <Folder Include="Orders\EventHandlers\Integration\" />
     <Folder Include="Orders\Queries\GetOrderByName\" />
     <Folder Include="Orders\Queries\GetOrderByCustomer\" />
