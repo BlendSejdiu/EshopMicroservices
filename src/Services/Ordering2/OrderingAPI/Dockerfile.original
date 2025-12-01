@@ -12,15 +12,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Services/Ordering2/OrderingAPI/OrderingAPI.csproj", "Services/Ordering2/OrderingAPI/"]
-COPY ["Services/Ordering2/Ordering.Application/Ordering.Application.csproj", "Services/Ordering2/Ordering.Application/"]
-COPY ["BuildingBlocks/BuildingBlocks.Messaging/BuildingBlocks.Messaging.csproj", "BuildingBlocks/BuildingBlocks.Messaging/"]
-COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
-COPY ["Services/Ordering2/Ordering.Domain/Ordering.Domain.csproj", "Services/Ordering2/Ordering.Domain/"]
-COPY ["Services/Ordering2/Ordering.Infrastructure/Ordering.Infrastructure.csproj", "Services/Ordering2/Ordering.Infrastructure/"]
-RUN dotnet restore "./Services/Ordering2/OrderingAPI/OrderingAPI.csproj"
+COPY ["Services/Ordering/OrderingAPI/OrderingAPI.csproj", "Services/Ordering/OrderingAPI/"]
+RUN dotnet restore "./Services/Ordering/OrderingAPI/OrderingAPI.csproj"
 COPY . .
-WORKDIR "/src/Services/Ordering2/OrderingAPI"
+WORKDIR "/src/Services/Ordering/OrderingAPI"
 RUN dotnet build "./OrderingAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
