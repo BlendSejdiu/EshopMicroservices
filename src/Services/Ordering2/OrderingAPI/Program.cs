@@ -6,7 +6,7 @@ using OrderingAPI;
 var builder = WebApplication.CreateBuilder(args);
 
 //Add services before build.
-builder.Services.AddApplicationServices()
+builder.Services.AddApplicationServices(builder.Configuration)
     .AddInfrastructureServices(builder.Configuration)
     .AddAPIServices(builder.Configuration);
 
